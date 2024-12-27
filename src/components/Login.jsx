@@ -8,8 +8,8 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [emailId, setEmailId] = useState("niha@gmail.com");
-  const [password, setPaswword] = useState("Niha@197");
+  const [emailId, setEmailId] = useState("naddu@gmail.com");
+  const [password, setPaswword] = useState("Naddu@197");
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
@@ -26,7 +26,6 @@ const Login = () => {
       return navigate("/");
     } catch (error) {
       setError(error.response.data || "Something went wrong please try again");
-      console.log(error);
     }
   };
   return (
