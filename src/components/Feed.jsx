@@ -28,6 +28,7 @@ const Feed = () => {
   return (
     feed?.data.length && (
       <div className="flex justify-center">
+        <p>{error}</p>
         <UserCard user={feed.data[0]} />
       </div>
     )
