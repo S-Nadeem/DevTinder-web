@@ -14,8 +14,11 @@ const EditProfile = ({ user }) => {
   const [age, setAge] = useState(user.age);
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
+  const [error, setError] = useState();
+  const [toast, setToast] = useState(false);
 
   const handleProfileSave = async () => {
+    setError("");
     try {
       const res = await axios.put(
         BASE_URL + "/profile/edit",
@@ -35,71 +38,92 @@ const EditProfile = ({ user }) => {
         }
       );
       dispatch(addUser(res?.data?.data));
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 3000);
     } catch (error) {
-      console.log(error);
+      setError(error.response.data);
     }
   };
 
   return (
     <>
-      <div className="flex justify-center my-20">
+      <div className="flex justify-center my-10">
         <div className="flex justify-center mx-10">
           <div className="shadow-xl card bg-base-300 w-96">
             <div className="card-body">
-              <h2 className="justify-center card-title">Login</h2>
+              <h2 className="justify-center card-title">Edit Profile</h2>
               <div>
-                <label className="w-full max-w-xs my-3 form-control">
-                  <div className="mb-2">
-                    <div className="label ">First Name</div>
+                <label className="w-full max-w-xs my-2 form-control">
+                  <div className="label">
+                    <span className="label-text">First Name:</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={firstName}
+                    className="w-full max-w-xs input input-bordered"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+                <label className="w-full max-w-xs my-2 form-control">
+                  <label className="w-full max-w-xs my-2 form-control">
+                    <div className="label">
+                      <span className="label-text">Last Name:</span>
+                    </div>
                     <input
                       type="text"
-                      value={firstName}
+                      value={lastName}
                       className="w-full max-w-xs input input-bordered"
-                      onChange={(e) => setFirstName(e.target.value)}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
+                  </label>
+                  <div className="label">
+                    <span className="label-text">Photo URL :</span>
                   </div>
-                  <div className="label">Last Name</div>
                   <input
                     type="text"
-                    value={lastName}
-                    className="w-full max-w-xs input input-bordered"
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                  <div className="label">PhotoUrl: </div>
-                  <input
-                    type="text"
-                    value={[photoUrl]}
+                    value={photoUrl}
                     className="w-full max-w-xs input input-bordered"
                     onChange={(e) => setPhotoUrl(e.target.value)}
                   />
-                  <div className="label">Age</div>
+                </label>
+                <label className="w-full max-w-xs my-2 form-control">
+                  <div className="label">
+                    <span className="label-text">Age:</span>
+                  </div>
                   <input
                     type="text"
                     value={age}
                     className="w-full max-w-xs input input-bordered"
                     onChange={(e) => setAge(e.target.value)}
                   />
-                  <div className="label">Gender</div>
+                </label>
+                <label className="w-full max-w-xs my-2 form-control">
+                  <div className="label">
+                    <span className="label-text">Gender:</span>
+                  </div>
                   <input
                     type="text"
                     value={gender}
                     className="w-full max-w-xs input input-bordered"
                     onChange={(e) => setGender(e.target.value)}
                   />
-                  <div className="label">About</div>
-                  <input
-                    type="text"
-                    value={about}
-                    className="w-full max-w-xs input input-bordered"
+                </label>
+                <label className="w-full max-w-xs my-2 form-control">
+                  <div className="label">
+                    <span className="label-text">About:</span>
+                  </div>
+                  <textarea
                     onChange={(e) => setAbout(e.target.value)}
-                  />
+                    value={about}
+                    className="w-full max-w-xs textarea textarea-bordered textarea-sm"
+                  ></textarea>
                 </label>
               </div>
-              <div className="justify-center card-actions">
-                <button
-                  onClick={handleProfileSave}
-                  className=" btn btn-primary"
-                >
+              <p className="text-red-500">{error}</p>
+              <div className="justify-center m-2 card-actions">
+                <button className="btn btn-primary" onClick={handleProfileSave}>
                   Save Profile
                 </button>
               </div>
@@ -110,6 +134,13 @@ const EditProfile = ({ user }) => {
           user={{ firstName, lastName, photoUrl, age, gender, about }}
         />
       </div>
+      {toast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span>Profile saved successfully.</span>
+          </div>
+        </div>
+      )}
     </>
   );
 };

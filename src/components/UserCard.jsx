@@ -11,10 +11,12 @@ const UserCard = ({ user }) => {
         <h2 className="card-title">{`${firstName} ${lastName}`}</h2>
         {gender && age && <p>{`${age}, ${gender}`}</p>}
         <p>{about}</p>
+        {/* {isFeedoptions && ( */}
         <div className="justify-center my-4 card-actions">
           <button className="bg-pink-200 btn btn-primary ">Ignored</button>
           <button className="bg-green-300 btn btn-primary ">Interested</button>
         </div>
+        {/* )} */}
       </div>
     </div>
   );
@@ -31,4 +33,5 @@ UserCard.propTypes = {
     lastName: PropTypes.string,
     gender: PropTypes.string,
   }),
+  isFeedoptions: PropTypes.boolean,
 };

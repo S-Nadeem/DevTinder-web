@@ -27,9 +27,9 @@ const Feed = () => {
 
   return (
     feed?.data.length && (
-      <div className="flex justify-center">
+      <div className="flex justify-center my-10">
         <p>{error}</p>
-        <UserCard user={feed.data[0]} />
+        <UserCard user={feed.data[0]} isFeedoptions={true} />
       </div>
     )
   );
