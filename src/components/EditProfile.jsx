@@ -88,28 +88,36 @@ const EditProfile = ({ user }) => {
                     onChange={(e) => setPhotoUrl(e.target.value)}
                   />
                 </label>
-                <label className="w-full max-w-xs my-2 form-control">
-                  <div className="label">
-                    <span className="label-text">Age:</span>
-                  </div>
-                  <input
-                    type="text"
-                    value={age}
-                    className="w-full max-w-xs input input-bordered"
-                    onChange={(e) => setAge(e.target.value)}
-                  />
-                </label>
-                <label className="w-full max-w-xs my-2 form-control">
-                  <div className="label">
-                    <span className="label-text">Gender:</span>
-                  </div>
-                  <input
-                    type="text"
-                    value={gender}
-                    className="w-full max-w-xs input input-bordered"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                </label>
+                <div className="flex gap-5">
+                  {/* Age/Gender Input */}
+                  <label className="w-full my-2 form-control">
+                    <div className="label">
+                      <span className="label-text">Age</span>
+                    </div>
+                    <input
+                      type="text"
+                      value={age}
+                      className="w-full input input-bordered"
+                      onChange={(e) => setAge(e.target.value)}
+                      placeholder="Enter Age or Select Gender"
+                    />
+                  </label>
+
+                  {/* Gender Select */}
+                  <label className="w-full my-2 form-control">
+                    <div className="label">
+                      <span className="label-text">Gender:</span>
+                    </div>
+                    <select
+                      className="w-full select select-primary"
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="others">Others</option>
+                    </select>
+                  </label>
+                </div>
                 <label className="w-full max-w-xs my-2 form-control">
                   <div className="label">
                     <span className="label-text">About:</span>
@@ -132,6 +140,7 @@ const EditProfile = ({ user }) => {
         </div>
         <UserCard
           user={{ firstName, lastName, photoUrl, age, gender, about }}
+          isFeedoptions={false}
         />
       </div>
       {toast && (

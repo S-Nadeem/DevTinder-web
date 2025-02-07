@@ -16,14 +16,14 @@ const Feed = () => {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
       });
-      dispatch(addFeed(res.data));
+      dispatch(addFeed(res?.data));
     } catch (error) {
       setError(error.response.data);
     }
   };
   useEffect(() => {
     fetchFeedData();
-  }, []);
+  });
 
   return (
     feed?.data.length && (
